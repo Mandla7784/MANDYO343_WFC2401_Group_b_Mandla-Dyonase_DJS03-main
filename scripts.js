@@ -31,6 +31,7 @@ function renderBooks(matches, starting) {
   }
   document.querySelector("[[data-list-items]").appendChild(starting);
 }
+renderBooks(matches, starting);
 
 function createSelectElemt(options, defaultOptionText) {
   const selectElement = document.createDocumentFragment();
@@ -52,25 +53,29 @@ function displaySelectedOprions(options, targetSelector, defaultOptionText) {
   const selectHtml = createSelectElement(options, defaultOptionText);
   document.querySelector(targetSelector).appendChild(selectHtml);
 }
+// Usage
+displaySelectedOprions(genres, "[data-search-genres]", "All Genres");
+displaySelectedOprions(authors, "[data-search-authors]", "All Authors");
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
-  const element = document.createElement("button");
-  element.classList = "preview";
-  element.setAttribute("data-preview", id);
+//function to handle theme settings
+function setThemeColors(theme) {
+  const darkColor = theme === "night" ? "255, 255, 255" : "10, 10, 20";
+  const lightColor = theme === "night" ? "10, 10, 20" : "255, 255, 255";
 
-  element.innerHTML = `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-    `;
+  document.querySelector("[data-settings-theme]").value = theme;
+  document.documentElement.style.setProperty("--color-dark", darkColor);
+  document.documentElement.style.setProperty("--color-light", lightColor);
+}
 
-  starting.appendChild(element);
+function checkAndSetTheme() {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    setThemeColors("night");
+  } else {
+    setThemeColors("day");
+  }
 }
 
 document.querySelector("[data-list-items]").appendChild(starting);
