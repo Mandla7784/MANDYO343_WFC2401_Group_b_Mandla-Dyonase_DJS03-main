@@ -21,9 +21,12 @@ const displaySelectOptions = (options, targetSelector, defaultOptionText) => {
 
 // Function to set theme colors
 const setThemeColors = (theme) => {
-  const darkColor = theme === "night" ? "255, 255, 255" : "10, 10, 20";
-  const lightColor = theme === "night" ? "10, 10, 20" : "255, 255, 255";
-
+  const colors = {
+    darkColor: theme === "night" ? "255, 255, 255" : "10, 10, 20",
+    lightColor: theme === "night" ? "10, 10, 20" : "255, 255, 255",
+  };
+  //making the set Theme code faster and more efficient
+  const { darkColor, lightColor } = colors;
   document.querySelector("[data-settings-theme]").value = theme;
   document.documentElement.style.setProperty("--color-dark", darkColor);
   document.documentElement.style.setProperty("--color-light", lightColor);
