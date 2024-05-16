@@ -1,3 +1,4 @@
+import { authors } from "/data.js";
 export const createBookElement = ({ author, id, image, title }) => {
   const element = document.createElement("button");
   element.classList = "preview";
