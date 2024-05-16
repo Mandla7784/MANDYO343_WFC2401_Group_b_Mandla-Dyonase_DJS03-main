@@ -32,87 +32,54 @@ function renderBooks(matches, starting) {
   document.querySelector("[[data-list-items]").appendChild(starting);
 }
 
+renderBooks();
 
-
-function createSelectElemt(options , defaultOptionText){
+function createSelectElemt(options, defaultOptionText) {
   const selectElement = document.createDocumentFragment();
-  const firstElement  = document.createElement("option");
-  firstElement.value = 'any';
+  const firstElement = document.createElement("option");
+  firstElement.value = "any";
   firstElement.innerText = defaultOptionText;
   selectElement.appendChild(firstElement);
-   for()
-
-
-
-
+  for (const [id, name] of Object.entries(options)) {
+    const element = document.createElement("option");
+    element.value = id;
+    selectElement.appendChild(element);
+  }
+  return selectElement;
 }
 
+function disaplySelecteOptions(options, defaultOptionText, targetSelected) {
+  const selectElement = createSelectElemt(options, defaultOptionText);
+  document.querySelector(targetSelected).appendChild(selectElement);
+}
+disaplySelecteOptions(genres, "[data-search-genres]", "All Genres");
+disaplySelecteOptions(authors, "[data-search-authors]", "All Authors");
 
+//function for theme color
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
-  const element = document.createElement("button");
-  element.classList = "preview";
-  element.setAttribute("data-preview", id);
+function setThemeColors(theme) {
+  const darkColor = theme === "night" ? "255, 255, 255" : "10, 10, 20";
+  const lightColor = theme === "night" ? "10, 10, 20" : "255, 255, 255";
 
-  element.innerHTML = `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-    `;
-
-  starting.appendChild(element);
+  document.querySelector("[data-settings-theme]").value = theme;
+  document.documentElement.style.setProperty("--color-dark", darkColor);
+  document.documentElement.style.setProperty("--color-light", lightColor);
 }
 
-document.querySelector("[data-list-items]").appendChild(starting);
-
-const genreHtml = document.createDocumentFragment();
-const firstGenreElement = document.createElement("option");
-firstGenreElement.value = "any";
-firstGenreElement.innerText = "All Genres";
-genreHtml.appendChild(firstGenreElement);
-
-for (const [id, name] of Object.entries(genres)) {
-  const element = document.createElement("option");
-  element.value = id;
-  element.innerText = name;
-  genreHtml.appendChild(element);
+//funcion to check the them settings
+function checkAndSetTheme() {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    setThemeColors("night");
+  } else {
+    setThemeColors("day");
+  }
 }
 
-document.querySelector("[data-search-genres]").appendChild(genreHtml);
-
-const authorsHtml = document.createDocumentFragment();
-const firstAuthorElement = document.createElement("option");
-firstAuthorElement.value = "any";
-firstAuthorElement.innerText = "All Authors";
-authorsHtml.appendChild(firstAuthorElement);
-
-for (const [id, name] of Object.entries(authors)) {
-  const element = document.createElement("option");
-  element.value = id;
-  element.innerText = name;
-  authorsHtml.appendChild(element);
-}
-
-document.querySelector("[data-search-authors]").appendChild(authorsHtml);
-
-if (
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches
-) {
-  document.querySelector("[data-settings-theme]").value = "night";
-  document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
-  document.documentElement.style.setProperty("--color-light", "10, 10, 20");
-} else {
-  document.querySelector("[data-settings-theme]").value = "day";
-  document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
-  document.documentElement.style.setProperty("--color-light", "255, 255, 255");
-}
+// Usage
+checkAndSetTheme();
 
 document.querySelector("[data-list-button]").innerText = `Show more (${
   books.length - BOOKS_PER_PAGE
