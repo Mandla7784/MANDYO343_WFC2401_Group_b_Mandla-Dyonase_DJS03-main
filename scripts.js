@@ -23,6 +23,7 @@ const displaySelectOptions = (options, targetSelector, defaultOptionText) => {
 // Function to set theme colors
 const setThemeColors = (theme) => {
   const colors = {
+    // object for color theme
     darkColor: theme === "night" ? "255, 255, 255" : "10, 10, 20",
     lightColor: theme === "night" ? "10, 10, 20" : "255, 255, 255",
   };
@@ -33,7 +34,7 @@ const setThemeColors = (theme) => {
   document.documentElement.style.setProperty("--color-light", lightColor);
 };
 
-// Function to check and set theme
+// Function to handle check and set theme
 const checkAndSetTheme = () => {
   if (
     window.matchMedia &&
