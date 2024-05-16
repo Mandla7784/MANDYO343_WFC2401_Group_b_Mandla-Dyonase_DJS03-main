@@ -4,7 +4,7 @@ let page = 1;
 let matches = books;
 
 // Function to create a book element
-function createBookElement({ author, id, image, title }) {
+const createBookElement = ({ author, id, image, title }) => {
   const element = document.createElement("button");
   element.classList = "preview";
   element.setAttribute("data-preview", id);
@@ -18,20 +18,20 @@ function createBookElement({ author, id, image, title }) {
     `;
 
   return element;
-}
+};
 
 // Function to display books
-function displayBooks(matches, starting) {
+const displayBooks = (matches, starting) => {
   for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
     const bookElement = createBookElement({ author, id, image, title });
     starting.appendChild(bookElement);
   }
 
   document.querySelector("[data-list-items]").appendChild(starting);
-}
+};
 
 // Function to create select options
-function createSelectElement(options, defaultOptionText) {
+const createSelectElement = (options, defaultOptionText) => {
   const selectElement = document.createDocumentFragment();
   const firstElement = document.createElement("option");
   firstElement.value = "any";
@@ -46,7 +46,7 @@ function createSelectElement(options, defaultOptionText) {
   }
 
   return selectElement;
-}
+};
 
 // Function to display select options
 function displaySelectOptions(options, targetSelector, defaultOptionText) {
