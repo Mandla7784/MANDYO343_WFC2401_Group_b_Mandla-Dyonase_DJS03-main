@@ -1,26 +1,9 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
-
+import { createBookElement } from "./utils/helper.js";
 let page = 1;
 let matches = books;
 
-// Function to create a book element
-const createBookElement = ({ author, id, image, title }) => {
-  const element = document.createElement("button");
-  element.classList = "preview";
-  element.setAttribute("data-preview", id);
-
-  element.innerHTML = `
-        <img class="preview__image" src="${image}" />
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-    `;
-
-  return element;
-};
-
-// Function to display books
+// Function to display books by calling a createBookElemt from a module
 const displayBooks = (matches, starting) => {
   for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
     const bookElement = createBookElement({ author, id, image, title });
