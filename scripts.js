@@ -49,23 +49,23 @@ const createSelectElement = (options, defaultOptionText) => {
 };
 
 // Function to display select options
-function displaySelectOptions(options, targetSelector, defaultOptionText) {
+const displaySelectOptions = (options, targetSelector, defaultOptionText) => {
   const selectHtml = createSelectElement(options, defaultOptionText);
   document.querySelector(targetSelector).appendChild(selectHtml);
-}
+};
 
 // Function to set theme colors
-function setThemeColors(theme) {
+const setThemeColors = (theme) => {
   const darkColor = theme === "night" ? "255, 255, 255" : "10, 10, 20";
   const lightColor = theme === "night" ? "10, 10, 20" : "255, 255, 255";
 
   document.querySelector("[data-settings-theme]").value = theme;
   document.documentElement.style.setProperty("--color-dark", darkColor);
   document.documentElement.style.setProperty("--color-light", lightColor);
-}
+};
 
 // Function to check and set theme
-function checkAndSetTheme() {
+const checkAndSetTheme = () => {
   if (
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -74,10 +74,10 @@ function checkAndSetTheme() {
   } else {
     setThemeColors("day");
   }
-}
+};
 
 // Function to handle search form submission
-function handleSearchFormSubmit(event) {
+const handleSearchFormSubmit = (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
   const filters = Object.fromEntries(formData);
@@ -107,10 +107,10 @@ function handleSearchFormSubmit(event) {
   matches = result;
 
   updateBookList();
-}
+};
 
 // Function to update the book list
-function updateBookList() {
+const updateBookList = () => {
   const listItems = document.querySelector("[data-list-items]");
   listItems.innerHTML = "";
 
@@ -126,18 +126,18 @@ function updateBookList() {
   }
 
   updateListButton();
-}
+};
 
 // Function to update the list button
-function updateListButton() {
+const updateListButton = () => {
   const remaining = Math.max(matches.length - page * BOOKS_PER_PAGE, 0);
   const button = document.querySelector("[data-list-button]");
   button.disabled = remaining === 0;
   button.innerHTML = `<span>Show more</span><span class="list__remaining">${remaining}</span>`;
-}
+};
 
 // Initialize the page
-function initializePage() {
+const initializePage = () => {
   displayBooks(matches, document.createDocumentFragment());
   displaySelectOptions(genres, "[data-search-genres]", "All Genres");
   displaySelectOptions(authors, "[data-search-authors]", "All Authors");
@@ -150,7 +150,9 @@ function initializePage() {
     page++;
     updateBookList();
   });
-}
+};
 
-// Call initializePage() to start the application
-initializePage();
+// Call initializePage() to start the application when the DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+  initializePage();
+});
