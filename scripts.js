@@ -4,7 +4,7 @@ let page = 1;
 let matches = books;
 
 const starting = document.createDocumentFragment();
-function createBookElement({ author, id, image }) {
+function createBookElement({ author, id, image, title }) {
   const element = document.createElement("button");
   element.classList = "priview";
   element.setAttribute("data-preview", id);
@@ -29,7 +29,8 @@ function renderBooks(matches, starting) {
     const bookElement = createBookElement({ author, id, image, title });
     starting.appendChild(bookElement);
   }
-  document.querySelector("[[data-list-items]").appendChild(starting);
+
+  document.querySelector("[data-list-items]").appendChild(starting);
 }
 renderBooks(matches, starting);
 
@@ -50,7 +51,7 @@ function createSelectElemt(options, defaultOptionText) {
 }
 
 function displaySelectedOprions(options, targetSelector, defaultOptionText) {
-  const selectHtml = createSelectElement(options, defaultOptionText);
+  const selectHtml = createSelectElemt(options, defaultOptionText);
   document.querySelector(targetSelector).appendChild(selectHtml);
 }
 // Usage
