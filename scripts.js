@@ -25,7 +25,29 @@ function createBookElement({ author, id, image }) {
 
 function renderBooks(matches, starting) {
   const BOOKS_PER_PAGE = 10;
+  for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
+    const bookElement = createBookElement({ author, id, image, title });
+    starting.appendChild(bookElement);
+  }
+  document.querySelector("[[data-list-items]").appendChild(starting);
 }
+
+
+
+function createSelectElemt(options , defaultOptionText){
+  const selectElement = document.createDocumentFragment();
+  const firstElement  = document.createElement("option");
+  firstElement.value = 'any';
+  firstElement.innerText = defaultOptionText;
+  selectElement.appendChild(firstElement);
+   for()
+
+
+
+
+}
+
+
 
 for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
   const element = document.createElement("button");
