@@ -10,7 +10,8 @@ const displayBooks = (matches, starting) => {
     starting.appendChild(bookElement);
   }
 
-  document.querySelector("[data-list-items]").appendChild(starting);
+  const bookListItems = document.querySelector("[data-list-items]");
+  bookListItems.appendChild(starting);
 };
 
 // Function to display select options by calling a createSelectElement from a module
