@@ -14,7 +14,7 @@ export const createBookElement = ({ author, id, image, title }) => {
   return element;
 };
 
-const createSelectElement = (options, defaultOptionText) => {
+export const createSelectElement = (options, defaultOptionText) => {
   const selectElement = document.createDocumentFragment();
   const firstElement = document.createElement("option");
   firstElement.value = "any";

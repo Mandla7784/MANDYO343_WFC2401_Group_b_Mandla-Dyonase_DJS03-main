@@ -1,5 +1,5 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
-import { createBookElement } from "./utils/helper.js";
+import { createBookElement, createSelectElement } from "./utils/helper.js";
 let page = 1;
 let matches = books;
 
@@ -13,25 +13,7 @@ const displayBooks = (matches, starting) => {
   document.querySelector("[data-list-items]").appendChild(starting);
 };
 
-// Function to create select options
-const createSelectElement = (options, defaultOptionText) => {
-  const selectElement = document.createDocumentFragment();
-  const firstElement = document.createElement("option");
-  firstElement.value = "any";
-  firstElement.innerText = defaultOptionText;
-  selectElement.appendChild(firstElement);
-
-  for (const [id, name] of Object.entries(options)) {
-    const element = document.createElement("option");
-    element.value = id;
-    element.innerText = name;
-    selectElement.appendChild(element);
-  }
-
-  return selectElement;
-};
-
-// Function to display select options
+// Function to display select options by calling a createSelectElement from a module
 const displaySelectOptions = (options, targetSelector, defaultOptionText) => {
   const selectHtml = createSelectElement(options, defaultOptionText);
   document.querySelector(targetSelector).appendChild(selectHtml);
