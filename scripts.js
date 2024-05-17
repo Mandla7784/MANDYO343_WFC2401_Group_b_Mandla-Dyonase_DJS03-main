@@ -5,14 +5,14 @@ let page = 1;
 let matches = books;
 
 // Initial setup function
-function initialize() {
+const initialize = () => {
   createBookList();
   createOptionLists();
   checkAndSetTheme();
   updateShowMoreButton();
-}
+};
 
-// Function to create the initial book list
+// Function to create the initial book and append to  specified location DOM
 function createBookList() {
   const starting = document.createDocumentFragment();
   const initialBooks = matches
